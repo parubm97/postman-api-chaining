@@ -1,0 +1,272 @@
+{
+  "info": {
+    "_postman_id": "522772f8-b8f1-4aa3-8bed-a4a1b806d931",
+    "name": "GoRestAPIChaining",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "47892407",
+    "_collection_link": "https://go.postman.co/collection/47892407-522772f8-b8f1-4aa3-8bed-a4a1b806d931?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "createuser",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "var random=Math.random().toString(36).substring(2);\r",
+              "var useremailid=\"jim\"+random+\"@gmail.com\";\r",
+              "console.log(useremailid);\r",
+              "var username=\"jim\"+random;\r",
+              "pm.environment.set(\"email_env\",useremailid);\r",
+              "pm.environment.set(\"name_env\",username);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData=pm.response.json();\r",
+              "pm.environment.set(\"id_env\",jsonData.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer e5ed7acd533b2aefed40dab0672dcaa0bc87bfd5196315631d82fb0aff007fe6"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"{{name_env}}\", \"gender\":\"male\", \"email\":\"{{email_env}}\", \"status\":\"active\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users"
+          ]
+        },
+        "description": "Generated from cURL: curl -i -H \"Accept:application/json\" -H \"Content-Type:application/json\" -H \"Authorization: Bearer e5ed7acd533b2aefed40dab0672dcaa0bc87bfd5196315631d82fb0aff007fe6\" -XPOST \"https://gorest.co.in/public/v2/users\" -d '{\"name\":\"Tenali Ramakrishna\", \"gender\":\"male\", \"email\":\"tenali.ramakrishna@15ce.com\", \"status\":\"active\"}'"
+      },
+      "response": []
+    },
+    {
+      "name": "getusers",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData_get=pm.response.json();\r",
+              "\r",
+              "pm.test(\"Validating  json field\",function(){\r",
+              "    pm.expect(jsonData_get.id).to.eql(pm.environment.get(\"id_env\"));\r",
+              "    pm.expect(jsonData_get.name).to.eql(pm.environment.get(\"name_env\"));\r",
+              "    pm.expect(jsonData_get.email).to.eql(pm.environment.get(\"email_env\"));\r",
+              "\r",
+              "    \r",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer e5ed7acd533b2aefed40dab0672dcaa0bc87bfd5196315631d82fb0aff007fe6"
+          }
+        ],
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users/{{id_env}}",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "{{id_env}}"
+          ]
+        },
+        "description": "Generated from cURL: curl -i -H \"Accept:application/json\" -H \"Content-Type:application/json\" -H \"Authorization: Bearer e5ed7acd533b2aefed40dab0672dcaa0bc87bfd5196315631d82fb0aff007fe6\" -XGET \"https://gorest.co.in/public/v2/users\""
+      },
+      "response": []
+    },
+    {
+      "name": "update",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer e5ed7acd533b2aefed40dab0672dcaa0bc87bfd5196315631d82fb0aff007fe6"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"{{name_env}}\", \"gender\":\"male\", \"email\":\"{{email_env}}\", \"status\":\"inactive\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users/{{id_env}}",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "{{id_env}}"
+          ]
+        },
+        "description": "Generated from cURL: curl -i -H \"Accept:application/json\" -H \"Content-Type:application/json\" -H \"Authorization: Bearer e5ed7acd533b2aefed40dab0672dcaa0bc87bfd5196315631d82fb0aff007fe6\" -XPATCH \"https://gorest.co.in/public/v2/users/8010393\" -d '{\"name\":\"Allasani Peddana\", \"email\":\"allasani.peddana@15ce.com\", \"status\":\"active\"}'"
+      },
+      "response": []
+    },
+    {
+      "name": "delete",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer e5ed7acd533b2aefed40dab0672dcaa0bc87bfd5196315631d82fb0aff007fe6"
+          }
+        ],
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users/{{id_env}}",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "{{id_env}}"
+          ]
+        },
+        "description": "Generated from cURL: curl -i -H \"Accept:application/json\" -H \"Content-Type:application/json\" -H \"Authorization: Bearer e5ed7acd533b2aefed40dab0672dcaa0bc87bfd5196315631d82fb0aff007fe6\" -XDELETE \"https://gorest.co.in/public/v2/users/8010393\""
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "e5ed7acd533b2aefed40dab0672dcaa0bc87bfd5196315631d82fb0aff007fe6",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

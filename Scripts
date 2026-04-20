@@ -1,0 +1,31 @@
+//Post request scripts
+//pre-request
+var random=Math.random().toString(36).substring(2);
+var useremailid="jim"+random+"@gmail.com";
+console.log(useremailid);
+var username="jim"+random;
+pm.environment.set("email_env",useremailid);
+pm.environment.set("name_env",username);
+
+//[post request
+var jsonData=pm.response.json();
+pm.environment.set("id_env",jsonData.id);
+
+
+//get request scripts
+//post script
+var jsonData_get=pm.response.json();
+
+pm.test("Validating  json field",function(){
+    pm.expect(jsonData_get.id).to.eql(pm.environment.get("id_env"));
+    pm.expect(jsonData_get.name).to.eql(pm.environment.get("name_env"));
+    pm.expect(jsonData_get.email).to.eql(pm.environment.get("email_env"));
+
+//update body
+{"name":"{{name_env}}", "gender":"male", "email":"{{email_env}}", "status":"inactive"}
+
+
+
+
+    
+})

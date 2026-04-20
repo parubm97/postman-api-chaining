@@ -1,24 +1,32 @@
 # 🚀 API Chaining using Postman
 
-This project demonstrates API chaining using Postman by passing dynamic data between requests.
+This project demonstrates API chaining by passing dynamic data between API requests using Postman.
 
-## 🔗 Flow Implemented
-1. Create User (POST)
+---
+
+## 🔗 Workflow Implemented
+
+1. Create User (POST request)
 2. Extract user ID from response
-3. Pass ID to next request
-4. Fetch User details (GET)
+4. Store ID in environment variable
+5. Pass ID to next request
+6. Get User Details (GET request)
+
+---
 
 ## 🛠 Tools Used
+
 - Postman
 - JavaScript (Postman scripting)
 
-## 💡 Key Concepts
-- Environment variables
-- Dynamic data handling
-- API chaining
-- Response validation
+---
 
-## 📌 Sample Script
-```javascript
-var jsonData = pm.response.json();
-pm.environment.set("id", jsonData.id);
+## 💡 Key Concepts Covered
+
+- API Chaining
+- Environment Variables
+- Dynamic Data Handling
+- Response Validation
+
+---
+
